@@ -12,7 +12,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/new
   def new
-    @category = Category.new
+    @category = Category.new(name: cookies[:category_name])
   end
 
   # GET /categories/1/edit
@@ -22,6 +22,7 @@ class CategoriesController < ApplicationController
   # POST /categories or /categories.json
   def create
     @category = Category.new(category_params)
+    cookies[:category_name] = @category.name
 
     respond_to do |format|
       if @category.save
